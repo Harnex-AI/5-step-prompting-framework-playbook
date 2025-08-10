@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [activeSection, setActiveSection] = useState('intro');
+  const [activeSection, setActiveSection] = useState('default');
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
@@ -43,21 +43,38 @@ function App() {
 
   const CopyButton = ({ text, className = "copy-btn-light" }) => {
     const [copied, setCopied] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleCopy = async () => {
+      if (loading) return;
+      
+      setLoading(true);
       const success = await copyToClipboard(text);
+      setLoading(false);
+      
       if (success) {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       }
     };
 
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleCopy();
+      }
+    };
+
     return (
       <button 
-        className={`${className} ${copied ? 'copied' : ''}`}
+        className={`${className} ${copied ? 'copied' : ''} ${loading ? 'loading' : ''}`}
         onClick={handleCopy}
+        onKeyDown={handleKeyDown}
+        disabled={loading}
+        aria-label={copied ? 'Text copied to clipboard' : loading ? 'Copying text...' : 'Copy text to clipboard'}
+        tabIndex={0}
       >
-        {copied ? '✅ Copied!' : '📋 Copy'}
+        {loading ? '⏳ Copying...' : copied ? '✅ Copied!' : '📋 Copy'}
       </button>
     );
   };
@@ -81,32 +98,59 @@ function App() {
   const progress = (currentStep / (steps.length - 1)) * 100;
 
   return (
-    <div className="container">
-      <div className="sidebar">
-        <div className="logo">
-          <h1>🚀 AI Framework</h1>
-          <p>5 Steps to Better Results</p>
-        </div>
+    <div className="container" role="application" aria-label="PromptCrafter - 5-Step Prompting Framework">
+      <nav className="sidebar" role="navigation" aria-label="Main navigation">
+        <header className="logo">
+          <h1>PromptCrafter</h1>
+          <p>5 steps for better results</p>
+        </header>
         
         <div 
-          className={`nav-item ${activeSection === 'intro' ? 'active' : ''}`}
-          onClick={() => setActiveSection('intro')}
-        >
-          <div className="nav-title">Watch It Build</div>
-          <div className="nav-desc">See the transformation</div>
-        </div>
-        
-        <div 
-          className={`nav-item ${activeSection === 'framework' ? 'active' : ''}`}
-          onClick={() => setActiveSection('framework')}
+          className={`nav-item ${activeSection === 'default' ? 'active' : ''}`}
+          onClick={() => setActiveSection('default')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setActiveSection('default');
+            }
+          }}
+          tabIndex={0}
+          role="button"
+          aria-label="Navigate to 5-Step Pattern section"
         >
           <div className="nav-title">The 5-Step Pattern</div>
           <div className="nav-desc">Core framework explained</div>
         </div>
         
         <div 
+          className={`nav-item ${activeSection === 'intro' ? 'active' : ''}`}
+          onClick={() => setActiveSection('intro')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setActiveSection('intro');
+            }
+          }}
+          tabIndex={0}
+          role="button"
+          aria-label="Navigate to Watch It Build section"
+        >
+          <div className="nav-title">Watch It Build</div>
+          <div className="nav-desc">See the transformation</div>
+        </div>
+        
+        <div 
           className={`nav-item ${activeSection === 'examples' ? 'active' : ''}`}
           onClick={() => setActiveSection('examples')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setActiveSection('examples');
+            }
+          }}
+          tabIndex={0}
+          role="button"
+          aria-label="Navigate to Quick Start Examples section"
         >
           <div className="nav-title">Quick Start Examples</div>
           <div className="nav-desc">3 detailed walkthroughs</div>
@@ -115,6 +159,15 @@ function App() {
         <div 
           className={`nav-item ${activeSection === 'templates' ? 'active' : ''}`}
           onClick={() => setActiveSection('templates')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setActiveSection('templates');
+            }
+          }}
+          tabIndex={0}
+          role="button"
+          aria-label="Navigate to Copy-Paste Templates section"
         >
           <div className="nav-title">Copy-Paste Templates</div>
           <div className="nav-desc">Ready-to-use formats</div>
@@ -123,6 +176,15 @@ function App() {
         <div 
           className={`nav-item ${activeSection === 'scenarios' ? 'active' : ''}`}
           onClick={() => setActiveSection('scenarios')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setActiveSection('scenarios');
+            }
+          }}
+          tabIndex={0}
+          role="button"
+          aria-label="Navigate to Workplace Scenarios section"
         >
           <div className="nav-title">Workplace Scenarios</div>
           <div className="nav-desc">Color-coded examples</div>
@@ -131,17 +193,100 @@ function App() {
         <div 
           className={`nav-item ${activeSection === 'practice' ? 'active' : ''}`}
           onClick={() => setActiveSection('practice')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setActiveSection('practice');
+            }
+          }}
+          tabIndex={0}
+          role="button"
+          aria-label="Navigate to Try Right Now section"
         >
           <div className="nav-title">Try Right Now</div>
           <div className="nav-desc">Hands-on exercises</div>
         </div>
-      </div>
+      </nav>
 
-      <div className="main-content">
+      <main className="main-content" role="main" aria-label="Content area">
+        {activeSection === 'default' && (
+          <section className="section active" aria-labelledby="hero-title">
+            <div className="hero-section">
+              <h1 id="hero-title" className="hero-title">Get better AI chat results.</h1>
+              <p className="hero-subtitle">The 5-Step Pattern for Everything</p>
+            </div>
+
+            <div className="before-after-container">
+              <div className="comparison-box">
+                <div className="comparison-side before-side">
+                  <div className="comparison-label bad-label">Go from:</div>
+                  <div className="comparison-content bad-content">
+                    "Summarise the meeting"
+                  </div>
+                </div>
+                <div className="arrow">→</div>
+                <div className="comparison-side after-side">
+                  <div className="comparison-label good-label">To:</div>
+                  <div className="comparison-content good-content">
+                    <span className="step-1-text">Summarise the key decisions from the marketing strategy meeting.</span> <span className="step-2-text">Act as an experienced project manager</span> <span className="step-3-text">where we discussed Q4 campaign budget and target audiences.</span> <span className="step-4-text">Focus on actionable outcomes and who's responsible.</span> <span className="step-5-text">Format as bullet points with deadlines and next steps clearly highlighted.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="framework-grid">
+              <div className="framework-card step-1">
+                <div className="card-number">1</div>
+                <div className="card-title" style={{color: '#2563eb'}}>Goal</div>
+                <div className="card-subtitle">What exactly do you want?</div>
+                <div className="card-content">
+                  Make it specific instead of vague. "Explain AI" becomes "Explain machine learning to marketing managers."
+                </div>
+              </div>
+
+              <div className="framework-card step-2">
+                <div className="card-number">2</div>
+                <div className="card-title" style={{color: '#16a34a'}}>Role</div>
+                <div className="card-subtitle">Who should help you?</div>
+                <div className="card-content">
+                  Get expert-level thinking. "Act as an experienced trainer" gives you professional perspective.
+                </div>
+              </div>
+
+              <div className="framework-card step-3">
+                <div className="card-number">3</div>
+                <div className="card-title" style={{color: '#ea580c'}}>Context</div>
+                <div className="card-subtitle">What do they need to know?</div>
+                <div className="card-content">
+                  Make it relevant to your situation. Include audience, constraints, and background details.
+                </div>
+              </div>
+
+              <div className="framework-card step-4">
+                <div className="card-number">4</div>
+                <div className="card-title" style={{color: '#9333ea'}}>Action</div>
+                <div className="card-subtitle">What should they do?</div>
+                <div className="card-content">
+                  Get what you actually need. "Focus on practical steps" instead of just generic information.
+                </div>
+              </div>
+
+              <div className="framework-card step-5">
+                <div className="card-number">5</div>
+                <div className="card-title" style={{color: '#dc2626'}}>Format</div>
+                <div className="card-subtitle">How should it look?</div>
+                <div className="card-content">
+                  Make it ready to use immediately. Specify tone, length, structure, and presentation style.
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {activeSection === 'intro' && (
-          <div className="section active">
+          <section className="section active" aria-labelledby="intro-title">
             <div className="section-header">
-              <h1 className="section-title">Watch How It Builds Up</h1>
+              <h1 id="intro-title" className="section-title">Watch How It Builds Up</h1>
               <p className="section-subtitle">See how each step makes your results dramatically better</p>
             </div>
 
@@ -152,6 +297,15 @@ function App() {
                     key={stepNum}
                     className={`step step-${stepNum} ${currentStep === stepNum ? 'active' : ''}`}
                     onClick={() => setCurrentStep(stepNum)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setCurrentStep(stepNum);
+                      }
+                    }}
+                    tabIndex={0}
+                    role="button"
+                    aria-label={`Step ${stepNum}: ${stepNum === 0 ? 'Basic Prompt' : stepNum === 1 ? 'Goal' : stepNum === 2 ? 'Role' : stepNum === 3 ? 'Context' : stepNum === 4 ? 'Action' : 'Format'}`}
                   >
                     <span className="step-number">{stepNum}</span>
                     <div>
@@ -190,75 +344,39 @@ function App() {
                 </div>
 
                 <div style={{textAlign: 'center', marginTop: '20px'}}>
-                  <button className="btn" onClick={prevStep} disabled={currentStep === 0}>← Previous</button>
-                  <button className="btn" onClick={nextStep} disabled={currentStep === steps.length - 1}>Next Step →</button>
-                  <button className="btn" onClick={resetDemo}>Reset</button>
+                  <button 
+                    className="btn" 
+                    onClick={prevStep} 
+                    disabled={currentStep === 0}
+                    aria-label="Go to previous step"
+                  >
+                    ← Previous
+                  </button>
+                  <button 
+                    className="btn" 
+                    onClick={nextStep} 
+                    disabled={currentStep === steps.length - 1}
+                    aria-label="Go to next step"
+                  >
+                    Next Step →
+                  </button>
+                  <button 
+                    className="btn" 
+                    onClick={resetDemo}
+                    aria-label="Reset demo to beginning"
+                  >
+                    Reset
+                  </button>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-
-        {activeSection === 'framework' && (
-          <div className="section active">
-            <div className="section-header">
-              <h1 className="section-title">The 5-Step Pattern for Everything</h1>
-              <p className="section-subtitle">Use this structure for any prompt to get dramatically better results</p>
-            </div>
-
-            <div className="framework-grid">
-              <div className="framework-card step-1">
-                <div className="card-title" style={{color: '#2563eb'}}>Step 1: Goal</div>
-                <div className="card-subtitle">What exactly do you want?</div>
-                <div className="card-content">
-                  Make it specific instead of vague. "Explain AI" becomes "Explain machine learning to marketing managers"
-                </div>
-              </div>
-
-              <div className="framework-card step-2">
-                <div className="card-title" style={{color: '#16a34a'}}>Step 2: Role</div>
-                <div className="card-subtitle">Who should help you?</div>
-                <div className="card-content">
-                  Get expert-level thinking. "Act as an experienced trainer" gives you professional perspective.
-                </div>
-              </div>
-
-              <div className="framework-card step-3">
-                <div className="card-title" style={{color: '#ea580c'}}>Step 3: Context</div>
-                <div className="card-subtitle">What do they need to know?</div>
-                <div className="card-content">
-                  Make it relevant to your situation. Include audience, constraints, and background details.
-                </div>
-              </div>
-
-              <div className="framework-card step-4">
-                <div className="card-title" style={{color: '#9333ea'}}>Step 4: Action</div>
-                <div className="card-subtitle">What should they do?</div>
-                <div className="card-content">
-                  Get what you actually need. "Focus on practical steps" instead of just generic information.
-                </div>
-              </div>
-
-              <div className="framework-card step-5">
-                <div className="card-title" style={{color: '#dc2626'}}>Step 5: Format</div>
-                <div className="card-subtitle">How should it look?</div>
-                <div className="card-content">
-                  Make it ready to use immediately. Specify tone, length, structure, and presentation style.
-                </div>
-              </div>
-            </div>
-
-            <div style={{background: '#f0f9ff', borderRadius: '12px', padding: '25px', textAlign: 'center'}}>
-              <h3 style={{color: '#0c4a6e', marginBottom: '15px'}}>The Magic is in the Steps</h3>
-              <p style={{color: '#374151'}}>Each step multiplies the quality. Don't skip steps - each one transforms generic into incredibly useful.</p>
-            </div>
-          </div>
+          </section>
         )}
 
         {activeSection === 'examples' && (
-          <div className="section active">
+          <section className="section active" aria-labelledby="examples-title">
             <div className="section-header">
-              <h1 className="section-title">Quick Start Examples</h1>
+              <h1 id="examples-title" className="section-title">Quick Start Examples</h1>
               <p className="section-subtitle">Three detailed walkthroughs showing the framework in action</p>
             </div>
 
@@ -276,32 +394,32 @@ function App() {
               <div className="step-example step-2">
                 <div className="step-label">Step 2 - Role:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Act as a patient IT trainer. Explain cloud storage" className="copy-btn" />
-                  Act as a patient IT trainer. Explain cloud storage
+                  <CopyButton text="Act as a patient IT trainer. Explain cloud storage." className="copy-btn" />
+                  Act as a patient IT trainer. Explain cloud storage.
                 </div>
               </div>
 
               <div className="step-example step-3">
                 <div className="step-label">Step 3 - Context:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Act as a patient IT trainer. Explain cloud storage to someone who's always saved files on their desktop and is worried about losing control of their documents" className="copy-btn" />
-                  Act as a patient IT trainer. Explain cloud storage to someone who's always saved files on their desktop and is worried about losing control of their documents
+                  <CopyButton text="Act as a patient IT trainer. Explain cloud storage to someone who's always saved files on their desktop and is worried about losing control of their documents." className="copy-btn" />
+                  Act as a patient IT trainer. Explain cloud storage to someone who's always saved files on their desktop and is worried about losing control of their documents.
                 </div>
               </div>
 
               <div className="step-example step-4">
                 <div className="step-label">Step 4 - Action:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Act as a patient IT trainer. Explain cloud storage to someone who's always saved files on their desktop and is worried about losing control of their documents. Address their concerns and explain the benefits clearly" className="copy-btn" />
-                  Act as a patient IT trainer. Explain cloud storage to someone who's always saved files on their desktop and is worried about losing control of their documents. Address their concerns and explain the benefits clearly
+                  <CopyButton text="Act as a patient IT trainer. Explain cloud storage to someone who's always saved files on their desktop and is worried about losing control of their documents. Address their concerns and explain the benefits clearly." className="copy-btn" />
+                  Act as a patient IT trainer. Explain cloud storage to someone who's always saved files on their desktop and is worried about losing control of their documents. Address their concerns and explain the benefits clearly.
                 </div>
               </div>
 
               <div className="step-example step-5">
                 <div className="step-label">Step 5 - Format:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Act as a patient IT trainer. Explain cloud storage to someone who's always saved files on their desktop and is worried about losing control of their documents. Address their concerns and explain the benefits clearly. Use simple language with practical examples, keep it under 200 words" className="copy-btn" />
-                  Act as a patient IT trainer. Explain cloud storage to someone who's always saved files on their desktop and is worried about losing control of their documents. Address their concerns and explain the benefits clearly. Use simple language with practical examples, keep it under 200 words
+                  <CopyButton text="Act as a patient IT trainer. Explain cloud storage to someone who's always saved files on their desktop and is worried about losing control of their documents. Address their concerns and explain the benefits clearly. Use simple language with practical examples, keep it under 200 words." className="copy-btn" />
+                  Act as a patient IT trainer. Explain cloud storage to someone who's always saved files on their desktop and is worried about losing control of their documents. Address their concerns and explain the benefits clearly. Use simple language with practical examples, keep it under 200 words.
                 </div>
               </div>
             </div>
@@ -312,95 +430,94 @@ function App() {
               <div className="step-example step-1">
                 <div className="step-label">Step 1 - Goal:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Write an email about the delayed product launch" className="copy-btn" />
-                  Write an email about the delayed product launch
+                  <CopyButton text="Write an email about the delayed product launch." className="copy-btn" />
+                  Write an email about the delayed product launch.
                 </div>
               </div>
 
               <div className="step-example step-2">
                 <div className="step-label">Step 2 - Role:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Act as a professional communications manager. Write an email about the delayed product launch" className="copy-btn" />
-                  Act as a professional communications manager. Write an email about the delayed product launch
+                  <CopyButton text="Act as a professional communications manager. Write an email about the delayed product launch." className="copy-btn" />
+                  Act as a professional communications manager. Write an email about the delayed product launch.
                 </div>
               </div>
 
               <div className="step-example step-3">
                 <div className="step-label">Step 3 - Context:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Act as a professional communications manager. Write an email about the delayed product launch to our beta customers who were expecting access this week" className="copy-btn" />
-                  Act as a professional communications manager. Write an email about the delayed product launch to our beta customers who were expecting access this week
+                  <CopyButton text="Act as a professional communications manager. Write an email about the delayed product launch to our beta customers who were expecting access this week." className="copy-btn" />
+                  Act as a professional communications manager. Write an email about the delayed product launch to our beta customers who were expecting access this week.
                 </div>
               </div>
 
               <div className="step-example step-4">
                 <div className="step-label">Step 4 - Action:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Act as a professional communications manager. Write an email about the delayed product launch to our beta customers who were expecting access this week. Apologise sincerely and provide a realistic new timeline" className="copy-btn" />
-                  Act as a professional communications manager. Write an email about the delayed product launch to our beta customers who were expecting access this week. Apologise sincerely and provide a realistic new timeline
+                  <CopyButton text="Act as a professional communications manager. Write an email about the delayed product launch to our beta customers who were expecting access this week. Apologise sincerely and provide a realistic new timeline." className="copy-btn" />
+                  Act as a professional communications manager. Write an email about the delayed product launch to our beta customers who were expecting access this week. Apologise sincerely and provide a realistic new timeline.
                 </div>
               </div>
 
               <div className="step-example step-5">
                 <div className="step-label">Step 5 - Format:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Act as a professional communications manager. Write an email about the delayed product launch to our beta customers who were expecting access this week. Apologise sincerely and provide a realistic new timeline. Use an honest but reassuring tone, include specific next steps and compensation offer" className="copy-btn" />
-                  Act as a professional communications manager. Write an email about the delayed product launch to our beta customers who were expecting access this week. Apologise sincerely and provide a realistic new timeline. Use an honest but reassuring tone, include specific next steps and compensation offer
+                  <CopyButton text="Act as a professional communications manager. Write an email about the delayed product launch to our beta customers who were expecting access this week. Apologise sincerely and provide a realistic new timeline. Use an honest but reassuring tone, include specific next steps and compensation offer." className="copy-btn" />
+                  Act as a professional communications manager. Write an email about the delayed product launch to our beta customers who were expecting access this week. Apologise sincerely and provide a realistic new timeline. Use an honest but reassuring tone, include specific next steps and compensation offer.
                 </div>
               </div>
             </div>
 
             <div className="example-container">
-              <div className="example-title">🔧 Example 3: Simplifying Requirements</div>
+              <div className="example-title">💻 Example 3: Developer-to-Business Translation</div>
               
               <div className="step-example step-1">
                 <div className="step-label">Step 1 - Goal:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Simplify this technical specification" className="copy-btn" />
-                  Simplify this technical specification
+                  <CopyButton text="Simplify this technical specification." className="copy-btn" />
+                  Simplify this technical specification.
                 </div>
               </div>
 
               <div className="step-example step-2">
                 <div className="step-label">Step 2 - Role:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Act as a business analyst who excels at translating technical details. Simplify this technical specification" className="copy-btn" />
-                  Act as a business analyst who excels at translating technical details. Simplify this technical specification
+                  <CopyButton text="Act as a senior developer who excels at translating technical details. Simplify this technical specification." className="copy-btn" />
+                  Act as a senior developer who excels at translating technical details. Simplify this technical specification.
                 </div>
               </div>
 
               <div className="step-example step-3">
                 <div className="step-label">Step 3 - Context:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Act as a business analyst who excels at translating technical details. Simplify this technical specification for the sales team who need to explain features to non-technical customers" className="copy-btn" />
-                  Act as a business analyst who excels at translating technical details. Simplify this technical specification for the sales team who need to explain features to non-technical customers
+                  <CopyButton text="Act as a senior developer who excels at translating technical details. Simplify this technical specification for a product owner who is a non-technical customer and needs to understand the feature." className="copy-btn" />
+                  Act as a senior developer who excels at translating technical details. Simplify this technical specification for a product owner who is a non-technical customer and needs to understand the feature.
                 </div>
               </div>
 
               <div className="step-example step-4">
                 <div className="step-label">Step 4 - Action:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Act as a business analyst who excels at translating technical details. Simplify this technical specification for the sales team who need to explain features to non-technical customers. Focus on customer benefits rather than technical implementation" className="copy-btn" />
-                  Act as a business analyst who excels at translating technical details. Simplify this technical specification for the sales team who need to explain features to non-technical customers. Focus on customer benefits rather than technical implementation
+                  <CopyButton text="Act as a senior developer who excels at translating technical details. Simplify this technical specification for a product owner who is a non-technical customer and needs to understand the feature. Focus on business value and user impact rather than technical implementation." className="copy-btn" />
+                  Act as a senior developer who excels at translating technical details. Simplify this technical specification for a product owner who is a non-technical customer and needs to understand the feature. Focus on business value and user impact rather than technical implementation.
                 </div>
               </div>
 
               <div className="step-example step-5">
                 <div className="step-label">Step 5 - Format:</div>
                 <div className="template-box copyable">
-                  <CopyButton text="Act as a business analyst who excels at translating technical details. Simplify this technical specification for the sales team who need to explain features to non-technical customers. Focus on customer benefits rather than technical implementation. Use bullet points with 'What this means for you' explanations" className="copy-btn" />
-                  Act as a business analyst who excels at translating technical details. Simplify this technical specification for the sales team who need to explain features to non-technical customers. Focus on customer benefits rather than technical implementation. Use bullet points with "What this means for you" explanations
+                  <CopyButton text="Act as a senior developer who excels at translating technical details. Simplify this technical specification for a product owner who is a non-technical customer and needs to understand the feature. Focus on business value and user impact rather than technical implementation. Use plain language with clear headings, include user benefits, and provide concrete examples." className="copy-btn" />
+                  Act as a senior developer who excels at translating technical details. Simplify this technical specification for a product owner who is a non-technical customer and needs to understand the feature. Focus on business value and user impact rather than technical implementation. Use plain language with clear headings, include user benefits, and provide concrete examples.
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         )}
 
-        {/* Add other sections similarly */}
         {activeSection === 'templates' && (
-          <div className="section active">
+          <section className="section active" aria-labelledby="templates-title">
             <div className="section-header">
-              <h1 className="section-title">Copy-Paste Templates</h1>
+              <h1 id="templates-title" className="section-title">Copy-Paste Templates</h1>
               <p className="section-subtitle">Ready-to-use formats for common workplace needs</p>
             </div>
 
@@ -463,13 +580,13 @@ function App() {
                 [STEP 5] Use <span className="template-placeholder">[simple language]</span>, format as <span className="template-placeholder">[accessible structure]</span>
               </div>
             </div>
-          </div>
+          </section>
         )}
 
         {activeSection === 'scenarios' && (
-          <div className="section active">
+          <section className="section active" aria-labelledby="scenarios-title">
             <div className="section-header">
-              <h1 className="section-title">Universal Workplace Scenarios</h1>
+              <h1 id="scenarios-title" className="section-title">Universal Workplace Scenarios</h1>
               <p className="section-subtitle">Color-coded examples showing the framework in real workplace situations</p>
             </div>
 
@@ -499,14 +616,14 @@ function App() {
 
             <div className="scenario-box copyable">
               <CopyButton 
-                text="Summarise the key outcomes Act as an experienced team leader. from our project review meeting where we discussed budget overruns and timeline adjustments. Focus on decisions made and impact on team members. Format as a clear email update with action items and who's responsible for each." 
+                text="Summarise the key outcomes from our project review meeting. Act as an experienced team leader where we discussed budget overruns and timeline adjustments. Focus on decisions made and impact on team members. Format as a clear email update with action items and who's responsible for each." 
                 className="copy-btn-light" 
               />
               <div className="scenario-title">🎯 Scenario 1: Team Updates</div>
               <div className="scenario-text" style={{lineHeight: 1.8}}>
-                <span className="step-1-text">Summarise the key outcomes</span> 
-                <span className="step-2-text">Act as an experienced team leader.</span> 
-                <span className="step-3-text">from our project review meeting where we discussed budget overruns and timeline adjustments.</span> 
+                <span className="step-1-text">Summarise the key outcomes from our project review meeting.</span> 
+                <span className="step-2-text">Act as an experienced team leader</span> 
+                <span className="step-3-text">where we discussed budget overruns and timeline adjustments.</span> 
                 <span className="step-4-text">Focus on decisions made and impact on team members.</span> 
                 <span className="step-5-text">Format as a clear email update with action items and who's responsible for each.</span>
               </div>
@@ -514,7 +631,7 @@ function App() {
 
             <div className="scenario-box copyable">
               <CopyButton 
-                text="Explain our new pricing structure Act as a customer success manager. to existing customers who are concerned about cost increases. Address their concerns about value and provide clear comparisons. Use a reassuring tone with specific examples of improved benefits." 
+                text="Explain our new pricing structure to existing customers. Act as a customer success manager who are concerned about cost increases. Address their concerns about value and provide clear comparisons. Use a reassuring tone with specific examples of improved benefits." 
                 className="copy-btn-light" 
               />
               <div className="scenario-title">💬 Scenario 2: Client Explanations</div>
@@ -529,13 +646,13 @@ function App() {
 
             <div className="scenario-box copyable">
               <CopyButton 
-                text="Create a step-by-step guide for the new expense reporting system Act as a process improvement specialist. for employees who found the old system confusing. Focus on the most common tasks and potential pitfalls. Format as numbered steps with visual cues and troubleshooting tips." 
+                text="Create a step-by-step guide for the new expense reporting system. Act as a process improvement specialist for employees who found the old system confusing. Focus on the most common tasks and potential pitfalls. Format as numbered steps with visual cues and troubleshooting tips." 
                 className="copy-btn-light" 
               />
               <div className="scenario-title">📋 Scenario 3: Process Documentation</div>
               <div className="scenario-text" style={{lineHeight: 1.8}}>
-                <span className="step-1-text">Create a step-by-step guide for the new expense reporting system</span> 
-                <span className="step-2-text">Act as a process improvement specialist.</span> 
+                <span className="step-1-text">Create a step-by-step guide for the new expense reporting system.</span> 
+                <span className="step-2-text">Act as a process improvement specialist</span> 
                 <span className="step-3-text">for employees who found the old system confusing.</span> 
                 <span className="step-4-text">Focus on the most common tasks and potential pitfalls.</span> 
                 <span className="step-5-text">Format as numbered steps with visual cues and troubleshooting tips.</span>
@@ -544,7 +661,7 @@ function App() {
 
             <div className="scenario-box copyable">
               <CopyButton 
-                text="Explain data security best practices Act as a skilled corporate trainer. to remote workers who may not understand the technical risks. Focus on practical daily habits and simple protective measures. Use conversational language with real-world examples and clear do's and don'ts." 
+                text="Explain data security best practices to remote workers. Act as a skilled corporate trainer who may not understand the technical risks. Focus on practical daily habits and simple protective measures. Use conversational language with real-world examples and clear do's and don'ts." 
                 className="copy-btn-light" 
               />
               <div className="scenario-title">🎓 Scenario 4: Training Materials</div>
@@ -556,25 +673,25 @@ function App() {
                 <span className="step-5-text">Use conversational language with real-world examples and clear do's and don'ts.</span>
               </div>
             </div>
-          </div>
+          </section>
         )}
 
         {activeSection === 'practice' && (
-          <div className="section active">
+          <section className="section active" aria-labelledby="practice-title">
             <div className="section-header">
-              <h1 className="section-title">Try These Right Now</h1>
+              <h1 id="practice-title" className="section-title">Try These Right Now</h1>
               <p className="section-subtitle">Hands-on exercises to practice the framework</p>
             </div>
 
             <div className="example-container">
-              <div className="example-title">🚀 Instead of: "Explain the new policy"</div>
+              <div className="example-title">🎵 Instead of: "Write a social media post"</div>
               <div style={{marginBottom: '15px', color: '#6b7280'}}>Try all 5 steps:</div>
               <div className="template-box copyable">
                 <CopyButton 
-                  text="Act as an experienced software licensing manager. Explain the new software licensing policy to department heads who need to ensure their teams comply with usage limits. Focus on practical compliance steps and cost implications. Use clear, informative language with specific examples and a compliance checklist format." 
+                  text="Act as a DJ community social media manager. Write a product launch announcement for Serato's new AI-powered stem separation feature targeting club DJs and producers who want to remix tracks in real-time during live performances. Generate excitement and drive downloads of the beta version with exclusive early access. Use an energetic, DJ-culture tone with mixing terminology, include relevant DJ hashtags, and keep under 280 characters for Twitter." 
                   className="copy-btn" 
                 />
-                Act as an experienced software licensing manager. Explain the new software licensing policy to department heads who need to ensure their teams comply with usage limits. Focus on practical compliance steps and cost implications. Use clear, informative language with specific examples and a compliance checklist format.
+                Act as a DJ community social media manager. Write a product launch announcement for Serato's new AI-powered stem separation feature targeting club DJs and producers who want to remix tracks in real-time during live performances. Generate excitement and drive downloads of the beta version with exclusive early access. Use an energetic, DJ-culture tone with mixing terminology, include relevant DJ hashtags, and keep under 280 characters for Twitter.
               </div>
             </div>
 
@@ -606,9 +723,9 @@ function App() {
               <h3 style={{color: '#0c4a6e', marginBottom: '15px'}}>Remember: Each step makes it better!</h3>
               <p style={{color: '#374151'}}>Use all 5 steps every time. Watch your results transform from generic to incredibly useful.</p>
             </div>
-          </div>
+          </section>
         )}
-      </div>
+      </main>
     </div>
   );
 }
