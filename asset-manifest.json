@@ -1,15 +1,13 @@
 {
   "files": {
-    "main.css": "/5-step-prompting-framework-playbook/static/css/main.008e199e.css",
-    "main.js": "/5-step-prompting-framework-playbook/static/js/main.c2088c08.js",
-    "static/js/453.6a18c857.chunk.js": "/5-step-prompting-framework-playbook/static/js/453.6a18c857.chunk.js",
+    "main.css": "/5-step-prompting-framework-playbook/static/css/main.07f7e978.css",
+    "main.js": "/5-step-prompting-framework-playbook/static/js/main.74424747.js",
     "index.html": "/5-step-prompting-framework-playbook/index.html",
-    "main.008e199e.css.map": "/5-step-prompting-framework-playbook/static/css/main.008e199e.css.map",
-    "main.c2088c08.js.map": "/5-step-prompting-framework-playbook/static/js/main.c2088c08.js.map",
-    "453.6a18c857.chunk.js.map": "/5-step-prompting-framework-playbook/static/js/453.6a18c857.chunk.js.map"
+    "main.07f7e978.css.map": "/5-step-prompting-framework-playbook/static/css/main.07f7e978.css.map",
+    "main.74424747.js.map": "/5-step-prompting-framework-playbook/static/js/main.74424747.js.map"
   },
   "entrypoints": [
-    "static/css/main.008e199e.css",
-    "static/js/main.c2088c08.js"
+    "static/css/main.07f7e978.css",
+    "static/js/main.74424747.js"
   ]
 }
