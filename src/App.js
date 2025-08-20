@@ -41,7 +41,7 @@ function App() {
     }
   };
 
-  const CopyButton = ({ text, className = "copy-btn-light" }) => {
+  const CopyButton = ({ text, className = "copy-btn" }) => {
     const [copied, setCopied] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -617,7 +617,7 @@ function App() {
             <div className="scenario-box copyable">
               <CopyButton 
                 text="Summarise the key outcomes from our project review meeting. Act as an experienced team leader where we discussed budget overruns and timeline adjustments. Focus on decisions made and impact on team members. Format as a clear email update with action items and who's responsible for each." 
-                className="copy-btn-light" 
+                className="copy-btn" 
               />
               <div className="scenario-title">🎯 Scenario 1: Team Updates</div>
               <div className="scenario-text" style={{lineHeight: 1.8}}>
@@ -632,7 +632,7 @@ function App() {
             <div className="scenario-box copyable">
               <CopyButton 
                 text="Explain our new pricing structure to existing customers. Act as a customer success manager who are concerned about cost increases. Address their concerns about value and provide clear comparisons. Use a reassuring tone with specific examples of improved benefits." 
-                className="copy-btn-light" 
+                className="copy-btn" 
               />
               <div className="scenario-title">💬 Scenario 2: Client Explanations</div>
               <div className="scenario-text" style={{lineHeight: 1.8}}>
@@ -647,7 +647,7 @@ function App() {
             <div className="scenario-box copyable">
               <CopyButton 
                 text="Create a step-by-step guide for the new expense reporting system. Act as a process improvement specialist for employees who found the old system confusing. Focus on the most common tasks and potential pitfalls. Format as numbered steps with visual cues and troubleshooting tips." 
-                className="copy-btn-light" 
+                className="copy-btn" 
               />
               <div className="scenario-title">📋 Scenario 3: Process Documentation</div>
               <div className="scenario-text" style={{lineHeight: 1.8}}>
@@ -662,7 +662,7 @@ function App() {
             <div className="scenario-box copyable">
               <CopyButton 
                 text="Explain data security best practices to remote workers. Act as a skilled corporate trainer who may not understand the technical risks. Focus on practical daily habits and simple protective measures. Use conversational language with real-world examples and clear do's and don'ts." 
-                className="copy-btn-light" 
+                className="copy-btn" 
               />
               <div className="scenario-title">🎓 Scenario 4: Training Materials</div>
               <div className="scenario-text" style={{lineHeight: 1.8}}>

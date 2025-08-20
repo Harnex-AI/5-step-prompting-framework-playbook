@@ -493,60 +493,7 @@ body {
   outline-offset: 2px;
 }
 
-.copy-btn-light {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: white;
-  border: 1px solid #d1d5db;
-  color: #374151;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  font-weight: 600;
-  min-height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 80px;
-}
-
-.copy-btn-light:hover {
-  background: #f8fafc;
-  border-color: #6b7280;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  color: #1f2937;
-}
-
-.copy-btn-light:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.copy-btn-light.copied {
-  background: #16a34a;
-  border-color: #16a34a;
-  color: white;
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
-}
-
-.copy-btn-light.loading {
-  background: #f59e0b;
-  border-color: #f59e0b;
-  color: white;
-  cursor: wait;
-  opacity: 0.8;
-}
-
-.copy-btn-light:focus {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
-}
+/* copy-btn-light removed - using copy-btn class for all copy buttons */
 
 .btn {
   background: #2563eb;
@@ -824,8 +771,7 @@ body {
     padding: 20px 80px 20px 20px;
   }
   
-  .copy-btn,
-  .copy-btn-light {
+  .copy-btn {
     min-width: 70px;
     min-height: 32px;
     padding: 8px 12px;
