@@ -29,35 +29,13 @@ This playbook teaches you the **5-Step Prompting Framework**:
 - 🎮 **Interactive practice** - Try it yourself with guided exercises
 - 🛠️ **Practical templates** - Copy-paste frameworks you can use immediately
 
-## 🚀 Getting Started
+## 🚀 Access the Interactive Playbook
 
-Ready to become a prompting pro? Let's get you set up:
+**Ready to become a prompting pro?** 
 
-### Prerequisites
-- Basic computer skills (that's it!)
-- Curiosity about AI and prompting
-- 15-20 minutes to explore
+👉 **[Launch the 5-Step Prompting Framework Playbook](https://harnex-ai.github.io/5-step-prompting-framework-playbook/)**
 
-### Quick Start
-
-1. **Clone this repository**
-   ```bash
-   git clone https://github.com/yourusername/5-step-prompting-framework-playbook.git
-   cd 5-step-prompting-framework-playbook
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Launch the interactive playbook**
-   ```bash
-   npm start
-   ```
-
-4. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000) and start learning!
+No installation required - just click and start learning!
 
 ## 🎯 What Makes This Different
 
@@ -66,19 +44,6 @@ Ready to become a prompting pro? Let's get you set up:
 - **📝 Real-World Examples** - Learn with practical, useful prompts
 - **🔄 Progressive Difficulty** - Start simple, build complexity gradually
 - **💪 Confidence Building** - Each step builds your prompting skills
-
-## 🛠️ Development Scripts
-
-Once you're comfortable with the basics, you can explore the technical side:
-
-### `npm start`
-Runs the interactive playbook in development mode at [http://localhost:3000](http://localhost:3000)
-
-### `npm test`
-Launches the test runner for the application
-
-### `npm run build`
-Creates an optimised production build
 
 ## 🎉 Ready to Begin?
 
