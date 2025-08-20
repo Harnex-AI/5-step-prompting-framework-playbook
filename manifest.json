@@ -3,6 +3,11 @@
   "name": "5-Step Prompting Framework Playbook",
   "icons": [
     {
+      "src": "Harnex-AI.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    },
+    {
       "src": "favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml"
