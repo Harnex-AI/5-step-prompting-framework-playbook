@@ -1,0 +1,86 @@
+# 5-Step Prompting Framework Playbook
+
+## Project Overview
+This is an interactive React web application that teaches prompt engineering through a proven 5-step framework. It's designed as an educational playbook for beginners who want to master AI communication skills.
+
+## Live Application
+- **Deployed URL**: https://harnex-ai.github.io/5-step-prompting-framework-playbook/
+- **Purpose**: Interactive learning experience for prompt engineering
+- **Target Audience**: Beginners to AI prompting, professionals wanting to improve AI communication
+
+## 5-Step Prompting Framework
+The core methodology taught in this application:
+
+1. **Goal** - Define what you want to achieve (be specific, not vague)
+2. **Role** - Specify the AI's persona or expertise level 
+3. **Context** - Provide relevant background information and constraints
+4. **Action** - Give specific instructions on what to focus on
+5. **Format** - Define how the response should be structured and presented
+
+## Repository Structure
+```
+├── public/
+│   ├── index.html          # Main HTML template
+│   ├── manifest.json       # PWA manifest
+│   ├── Harnex-AI.ico      # Custom favicon
+│   └── robots.txt         # SEO/crawler instructions
+├── src/
+│   ├── App.js             # Main React component (733 lines)
+│   ├── App.css            # Complete styling (750+ lines)
+│   ├── index.js           # React entry point
+│   └── index.css          # Minimal global styles
+├── package.json           # Dependencies and scripts
+└── README.md              # User-focused documentation
+```
+
+## Key Features
+- **Interactive Demo**: Step-by-step prompt building with live preview
+- **Real Examples**: 3 detailed walkthroughs showing framework application
+- **Copy-Paste Templates**: Ready-to-use prompt formats for common scenarios
+- **Workplace Scenarios**: Color-coded examples for professional contexts
+- **Practice Exercises**: Hands-on learning opportunities
+
+## Technical Implementation
+- **Framework**: React 19.1.1 with Create React App
+- **Styling**: Custom CSS with responsive design
+- **Deployment**: GitHub Pages
+- **Bundle Size**: Optimized ~64KB gzipped JavaScript, ~3KB CSS
+- **Accessibility**: ARIA labels, keyboard navigation, semantic HTML
+
+## Content Sections
+1. **5-Step Pattern**: Core framework explanation with interactive cards
+2. **Watch It Build**: Step-by-step demo showing prompt evolution
+3. **Quick Start Examples**: Technical concepts, customer communications, dev-to-business translation
+4. **Copy-Paste Templates**: Reusable formats for explanations, summaries, communications
+5. **Workplace Scenarios**: Real-world applications with color-coded steps
+6. **Try Right Now**: Practical exercises for immediate application
+
+## Educational Value
+- Transforms vague prompts like "Summarise the meeting" into specific, actionable instructions
+- Teaches professional AI communication skills
+- Provides practical templates for workplace scenarios
+- Demonstrates progressive prompt improvement
+- Builds confidence through guided practice
+
+## Code Quality
+- Clean, DRY principles followed
+- No ghost code or redundancy
+- Consolidated CSS classes
+- Minimal dependencies
+- Optimized build process
+- Semantic, accessible markup
+
+## Use Cases for AI Agents
+This repository serves as:
+- **Educational Resource**: Teaching prompt engineering fundamentals
+- **Template Library**: Reusable prompt structures
+- **Best Practices Guide**: Professional AI communication standards
+- **Interactive Learning Tool**: Hands-on prompt crafting experience
+
+## Deployment
+- **Platform**: GitHub Pages
+- **Build**: Optimized production build with React Scripts
+- **Domain**: Custom subdomain under github.io
+- **Performance**: Fast loading, minimal bundle size
+
+The application successfully demonstrates how structured prompting dramatically improves AI interaction quality, making it valuable for anyone looking to enhance their AI communication skills.

@@ -1,3 +1,10 @@
 # https://www.robotstxt.org/robotstxt.html
+# 5-Step Prompting Framework Playbook - Open for crawling
+
 User-agent: *
+Allow: /
 Disallow:
+
+# Additional resources for AI agents and crawlers
+# See /llm.txt for comprehensive repository information
+# Live application: https://harnex-ai.github.io/5-step-prompting-framework-playbook/
